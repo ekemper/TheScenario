@@ -1,24 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react"
+import DataTable from "./components/DataTable";
 
 export default () => {
 
   const revalidatedData = async () => {
     const result = await fetch(`http://127.0.01:3000/data`, {
-        method: 'GET',
-        mode: 'no-cors',
+      method: 'GET',
+      mode: 'no-cors',
     });
 
     console.log(result);
 
     return result;
   }
-  
+
   const [state, setState] = useState<Response>();
   const [loadData, setLoadData] = useState(true);
 
-  useEffect(()=>{
+  useEffect(() => {
 
     if (!loadData)
       return;
@@ -26,26 +27,61 @@ export default () => {
     setLoadData(false)
 
     revalidatedData()
-    .then(res=>{
-      setState(res)
-    })
+      .then(res => {
+        setState(res)
+      })
   })
+
+  const containerClasses = ``
+  //   fixed left-0 top-0 flex w-full justify-center 
+  //   border-b border-gray-300 
+  //   bg-gradient-to-b from-zinc-200 
+  //   pb-6 pt-8 
+  //   backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit 
+  //   lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30
+  // `
+
+
+  const rows = [
+    {
+      id: "1",
+      content: "Tony Reichert",
+    },
+    {
+      id: "2",
+      content: "Zoey Lang",
+    },
+    {
+      id: "3",
+      content: "Jane Fisher",
+    },
+    {
+      id: "4",
+      content: "William Howard",
+    },
+  ];
+  
 
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          This is a empty shell for a Next.js app.<br />
-          Libraray's pre-installed to keep things simple: 
-        </p>
-         <ul>
-            <li>Tailwind CSS - https://tailwindcss.com/</li>
-            <li>Nextui - </li>
-            <li>Formik - </li>
-          </ul>
-          {state && <p>{JSON.stringify(state)}</p>}
+    <main className="dark flex flex-col items-center justify-between p-24">
+
+      <div className="max-w-5xl w-full items-center justify-between lg:flex">
+        <h1 className={containerClasses}>
+         Here is a list of Data Objects!
+        </h1>
+        {/* <ul>
+          <li>Tailwind CSS - https://tailwindcss.com/</li>
+          <li>Nextui - </li>
+          <li>Formik - </li>
+        </ul> */}
+       
+
+
+
       </div>
+      {state && <DataTable data={rows}/>}
+      
     </main>
   )
 }
