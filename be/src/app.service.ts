@@ -11,7 +11,13 @@ export class AppService {
 
 
   async getAll() {
-    return [{data: '123'}]
+
+    console.log('called get all!')
+    return [
+      {_id: '1234', data: '123'},
+      {_id: '2435', data: '456'},
+      {_id: '3566', data: '789'},
+    ]
 
     //return await this.dataDao.getAll()
   }

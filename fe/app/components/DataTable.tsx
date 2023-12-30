@@ -1,39 +1,29 @@
 import React from "react";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from "@nextui-org/react";
+import { Data, Datum } from "../DatumSchema";
 
 const columns = [
   {
-    key: "name",
-    label: "id",
+    key: "id",
+    label: "ID",
   },
   {
-    key: "role",
-    label: "content",
+    key: "data",
+    label: "Data",
   },
 ];
 
-// const PopulatedTable = (items: any) => {
-
-//   return (
-    
-//   )
-// }
-
-// const EmptyTable = () => {
-//   return ()
-// }
-
-export default function DataTable(data: any) {
+export default function DataTable(items: Data) {
   return (
     <Table aria-label="Example table with dynamic content">
       <TableHeader columns={columns}>
         {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
       </TableHeader>
       {
-        data
-          ? <TableBody items={data}>
-            {(item: any) => (
-              <TableRow key={item.key}>
+        items
+          ? <TableBody items={items}>
+            {(item: Datum) => (
+              <TableRow key={item._id}>
                 {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
               </TableRow>
             )}
