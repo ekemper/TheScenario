@@ -17,10 +17,16 @@ export default () => {
 
     setLoadData(false)
 
-    fetchAll().then(data => {
-      console.log({ data })
-      return setDataObjects(data)
-    })
+    try {
+      fetchAll().then((data: Data) => {
+        console.log({ data })
+        return setDataObjects(data)
+      })
+
+    } catch (e) {
+      console.log({ e }) // TODO : not for prod, need to handle fe errors gracefully
+    }
+
   }, [])
 
   const containerClasses = ``
@@ -71,7 +77,7 @@ export default () => {
 
 
       </div>
-      {/* {state && <DataTable items={state}/>} */}
+      {/* {dataObjects && <DataTable items={dataObjects}/>} */}
 
     </main>
   )
