@@ -18,11 +18,7 @@ export default () => {
     setLoadData(false)
 
     try {
-      fetchAll().then((data: Data) => {
-        console.log({ data })
-        return setDataObjects(data)
-      })
-
+      fetchAll().then((data: Data) => setDataObjects(data))
     } catch (e) {
       console.log({ e }) // TODO : not for prod, need to handle fe errors gracefully
     }
@@ -38,28 +34,6 @@ export default () => {
   //   lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30
   // `
 
-
-  // const rows = [
-  //   {
-  //     id: "1",
-  //     content: "Tony Reichert",
-  //   },
-  //   {
-  //     id: "2",
-  //     content: "Zoey Lang",
-  //   },
-  //   {
-  //     id: "3",
-  //     content: "Jane Fisher",
-  //   },
-  //   {
-  //     id: "4",
-  //     content: "William Howard",
-  //   },
-  // ];
-
-
-
   return (
     <main className="dark flex flex-col items-center justify-between p-24">
 
@@ -72,12 +46,9 @@ export default () => {
           <li>Nextui - </li>
           <li>Formik - </li>
         </ul> */}
-
-
-
-
       </div>
-      {/* {dataObjects && <DataTable items={dataObjects}/>} */}
+
+      {dataObjects && <DataTable items={dataObjects}/>}
 
     </main>
   )

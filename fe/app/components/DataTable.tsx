@@ -1,10 +1,10 @@
-import React from "react";
+import React, { FC } from "react";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from "@nextui-org/react";
 import { Data, Datum } from "../DatumSchema";
 
 const columns = [
   {
-    key: "id",
+    key: "_id",
     label: "ID",
   },
   {
@@ -13,8 +13,12 @@ const columns = [
   },
 ];
 
-export default function DataTable(items: Data) {
+interface DataTableProps {
+  items: Data
+}
+const DataTable: FC<DataTableProps> = ({ items }) => {
   return (
+
     <Table aria-label="Example table with dynamic content">
       <TableHeader columns={columns}>
         {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
@@ -33,5 +37,8 @@ export default function DataTable(items: Data) {
       }
 
     </Table>
+
   );
 }
+
+export default DataTable
