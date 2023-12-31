@@ -21,13 +21,15 @@ export const fetchAll = async () => {
   }
 }
 
-
-export const create = async (id: String) => {
+export const create = async (newDatum: String) => {
 
   try {
+    const body = JSON.stringify({newDatum})
+    console.log(body)
 
-    const resp = await fetch(`${dataApiUrl}${id}`, {
+    const resp = await fetch(`${dataApiUrl}`, {
       method: 'POST',
+      body: body,
       mode: 'cors',
     });
 

@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { Formik, Field, Form } from "formik";
 import { FC } from 'react';
+import { create } from '../DatumApi';
 
 interface CreateProps {
     setIsLoading: any
@@ -14,19 +15,23 @@ const Create: FC<CreateProps> = ({ setIsLoading }) => {
             <div>
                 <Formik
                     initialValues={{ data: "" }}
-                    onSubmit={async (values) => {
+                    onSubmit={async (value) => {
                         setIsLoading(true)
-                        await new Promise((resolve) => setTimeout(resolve, 500));
-                        setIsLoading(false)
-                        alert(JSON.stringify(values, null, 2));
+                        await create(value.data)
+                        setIsLoading(false) // TODO ; this sort of boilerplate can be avoided with react-query, but doing it explicitly is fine here
                     }}
                 >
                     <Form className='flex'>
+
+
+                    {/* TODO: ADD VALIDATION for string length, and not js */}
+                    {/* handle validation errors gracefully with user facing message on how to fix  */}
+
                         <Field 
-                            className="h-12 mr-4 p-2 rounded-xl" 
+                            className="h-12 mr-4 py-2 px-4 rounded-xl" 
                             name="data" 
                             type="text" 
-                            placeholder="new datum"/>
+                            placeholder="new datum"/> 
 
                         <button type="submit" className="rounded-full ">
                             <FontAwesomeIcon className="h-10 " icon={faCirclePlus} />

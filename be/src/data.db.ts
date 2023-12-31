@@ -8,19 +8,19 @@ import { v4 as uuid_v4 } from 'uuid';
     createdAt: 'created',
   }
 })
-export class Data {
+export class Datum {
   @Prop({ type: String, default: uuid_v4 })
   _id?: string;
   
   @Prop({type: String})
-  data: string;
+  text: string;
 }
 
-export const DataSchema = SchemaFactory.createForClass(Data);
+export const DatumSchema = SchemaFactory.createForClass(Datum);
 
 export const DataCollection = {
-  name: Data.name,
-  schema: DataSchema,
+  name: Datum.name,
+  schema: DatumSchema,
 };
 
 export const DataConnection = MongooseModule.forFeature(

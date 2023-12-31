@@ -14,7 +14,7 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
+  describe('root - fetch all', () => {
     it('should return ""', () => {
       expect(appController.getAll()).toBe('');
     });
