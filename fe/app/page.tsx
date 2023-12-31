@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Data } from "./DatumSchema";
-import { fetchAll } from "./DataObjectApi";
+import { fetchAll } from "./DatumApi";
 import Loader from "./components/Loader";
 import Create from "./components/Create";
 import DataTable from "./components/DataTable";
