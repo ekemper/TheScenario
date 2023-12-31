@@ -1,17 +1,17 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Data } from "./DatumSchema";
 import { fetchAll } from "./DataObjectApi";
 import Loader from "./components/Loader";
-import MainContent from "./components/MainContent";
-import { LoaderContext, LoaderContextProvider } from "./LoaderContextProvider";
+import Create from "./components/Create";
+import DataTable from "./components/DataTable";
 
 export default () => {
 
   const [dataObjects, setDataObjects] = useState<Data>([]);
-  const [loadData, setLoadData] = useState(true);
-  const {isLoading, setIsLoading} = useContext(LoaderContext)
+  const [loadData, setLoadData] = useState<Boolean>(true);
+  const [ isLoading, setIsLoading ] = useState<boolean>(true)
 
   useEffect(() => {
 
@@ -34,14 +34,15 @@ export default () => {
   }, [])
 
   return (
-    <LoaderContextProvider>
-      <main className="dark p-24">
-
-        {isLoading
-          ? <Loader />
-          : <MainContent dataObjects={dataObjects}/>
-        }
-      </main>
-    </LoaderContextProvider>
+    <main className="dark p-24">
+      {isLoading
+        ? <Loader />
+        : <>
+          <p className="text-2xl mb-10 uppercase">Data!</p>
+          <Create setIsLoading={setIsLoading}/>
+          {dataObjects && <DataTable items={dataObjects} />}
+        </>
+      }
+    </main>
   )
 }
