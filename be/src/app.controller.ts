@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Datum } from './data.db';
+import { Data } from './data.db';
 
 @Controller("data")
 export class AppController {
@@ -14,7 +14,7 @@ export class AppController {
 // TODO : Implement CreateDatumDto
 
   @Post()
-  create(@Body('newDatum') data: Datum) {
+  create(@Body('newDatum') data: Data) {
     console.log({data})
     return this.appService.create(data);
   }

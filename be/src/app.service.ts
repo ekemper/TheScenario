@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { DataDao } from './data.dao';
-import { Datum } from './data.db';
+import { Data } from './data.db';
 
 @Injectable()
 export class AppService {
@@ -15,7 +15,7 @@ export class AppService {
     return await this.dataDao.getAll()
   }
 
-  async create(data: Datum) {
+  async create(data: Data) {
     console.log('called create')
     return await this.dataDao.create(data)
   }
