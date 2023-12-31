@@ -52,7 +52,7 @@ const DataTable: FC<DataTableProps> = ({ items }) => {
   }, []);
 
   return (
-    <Table aria-label="Data Table">
+    <Table className="mt-10" aria-label="Data Table">
       <TableHeader columns={columns}>
         {(column) => (
           <TableColumn key={column.uid} align={"start"}>
