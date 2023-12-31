@@ -1,14 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react"
-import DataTable from "./components/DataTable";
+import { createContext, useContext, useEffect, useState } from "react"
 import { Data } from "./DatumSchema";
 import { fetchAll } from "./DataObjectApi";
+import Loader from "./components/Loader";
+import MainContent from "./components/MainContent";
+import { LoaderContext, LoaderContextProvider } from "./LoaderContextProvider";
 
 export default () => {
 
   const [dataObjects, setDataObjects] = useState<Data>([]);
   const [loadData, setLoadData] = useState(true);
+  const {isLoading, setIsLoading} = useContext(LoaderContext)
 
   useEffect(() => {
 
@@ -18,38 +21,27 @@ export default () => {
     setLoadData(false)
 
     try {
-      fetchAll().then((data: Data) => setDataObjects(data))
+      setIsLoading(true)
+      fetchAll().then((data: Data) => {
+        setDataObjects(data)
+        setIsLoading(false)
+        return
+      })
     } catch (e) {
       console.log({ e }) // TODO : not for prod, need to handle fe errors gracefully
     }
 
   }, [])
 
-  const containerClasses = ``
-  //   fixed left-0 top-0 flex w-full justify-center 
-  //   border-b border-gray-300 
-  //   bg-gradient-to-b from-zinc-200 
-  //   pb-6 pt-8 
-  //   backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit 
-  //   lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30
-  // `
-
   return (
-    <main className="dark flex flex-col items-center justify-between p-24">
+    <LoaderContextProvider>
+      <main className="dark p-24">
 
-      <div className="max-w-5xl w-full items-center justify-between lg:flex">
-        <h1 className={containerClasses}>
-          Here is a list of Data Objects!
-        </h1>
-        {/* <ul>
-          <li>Tailwind CSS - https://tailwindcss.com/</li>
-          <li>Nextui - </li>
-          <li>Formik - </li>
-        </ul> */}
-      </div>
-
-      {dataObjects && <DataTable items={dataObjects}/>}
-
-    </main>
+        {isLoading
+          ? <Loader />
+          : <MainContent dataObjects={dataObjects}/>
+        }
+      </main>
+    </LoaderContextProvider>
   )
 }

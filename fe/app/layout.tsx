@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} font-mono`}>
         <Providers>
-          <Header />
+          {/* <Header /> */}
           {children}
         </Providers>
       </body>

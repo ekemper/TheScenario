@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from "@nextui-org/react";
 import { Data, Datum } from "../DatumSchema";
 
@@ -17,9 +17,10 @@ interface DataTableProps {
   items: Data
 }
 const DataTable: FC<DataTableProps> = ({ items }) => {
+
   return (
 
-    <Table aria-label="Example table with dynamic content">
+    <Table className="mt-10" aria-label="Example table with dynamic content">
       <TableHeader columns={columns}>
         {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
       </TableHeader>
