@@ -1,9 +1,9 @@
 
-import { deleteById } from "../DataApi";
+import { deleteById } from "../Data/DataApi";
 import { FC, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import { Datum } from "../DataSchema";
+import { Datum } from "../Data/DataSchema";
 import { Button } from "@nextui-org/react";
 
 interface DeleteActionProps {

@@ -1,10 +1,10 @@
 import { FC, use, useContext, useEffect, useState } from "react";
-import { Datum } from "../DataSchema";
+import { Datum } from "../Data/DataSchema";
 // import Loader from "./Loader";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Tooltip } from "@nextui-org/react";
 import React from "react";
 import DeleteAction from "./DeleteAction";
-import { DataContext } from "../DataContext";
+import { DataContext } from "../Data/DataContext";
 import Loader from "./Loader";
 
 const columns = [

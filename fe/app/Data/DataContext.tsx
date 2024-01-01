@@ -4,14 +4,18 @@ import { fetchAll } from './DataApi';
 
 type DataContextType = {
  data: Data;
- refreshData: () => void;
+ refreshData?: () => Promise<void>;
+ setData: any;
+ setIsLoading: any;
  isLoading: Boolean
 }
 
 const initialvalue: DataContextType = {
   data: [],
-  refreshData: () => {},
-  isLoading: false
+  refreshData: async () => {},
+  isLoading: false,
+  setData: () => {},
+  setIsLoading: () => {}
 }
 
 export const DataContext = createContext<DataContextType>(initialvalue);
@@ -21,16 +25,17 @@ export const DataProvider = ({ children }: any) => {
   const [isLoading, setIsLoading] = useState<Boolean>(true);
 
   const [data, setData] = useState([]);
-  const dataRef = useRef([]);
-  dataRef.current = data
+  // const dataRef = useRef([]);
+  // dataRef.current = data
 
-  const refreshData = async () => {
+  const refreshDataFunc = async () => {
     console.log('called refresh data')
     setIsLoading(true)
     const newData = await fetchAll()
     console.log({newData})
     setData(newData)
     setIsLoading(false)
+    return
   };
 
   useEffect(() => {
@@ -39,7 +44,9 @@ export const DataProvider = ({ children }: any) => {
     setLoadData(false)
 
     try {
-      refreshData()
+      refreshDataFunc().then(() => {
+        console.log('in then after init refresh data call')
+      })
       return
 
     } catch (e) {
@@ -48,7 +55,7 @@ export const DataProvider = ({ children }: any) => {
   }, [])
 
   return (
-    <DataContext.Provider value={{ data, refreshData, isLoading}}>
+    <DataContext.Provider value={{ data, setData, isLoading, setIsLoading}}>
       {children}
     </DataContext.Provider>
   );

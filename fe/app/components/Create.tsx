@@ -2,18 +2,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { Formik, Field, Form } from "formik";
 import { FC, useContext } from 'react';
-import { create } from '../DataApi';
-import { DataContext } from '../DataContext';
+import { create, fetchAll } from '../Data/DataApi';
+import { DataContext } from '../Data/DataContext';
 
 const Create: FC = () => {
-    const { refreshData } = useContext(DataContext);
+    const { setData, setIsLoading } = useContext(DataContext);
 
     const handleSubmit = async (value: any) => { // TODO get correct type here
         await create(value.data)
-        console.log('calling refresh in create handler')
-        await refreshData()
-        console.log('returned from refresh data in create handler')
-
+        // console.log('calling refresh in create handler')
+        // await refreshData()
+        // console.log('returned from refresh data in create handler')
+    
+        setIsLoading(true)
+        const newData = await fetchAll()
+        console.log({newData})
+        setData(newData)
+        setIsLoading(false)
     }
 
     return (
