@@ -1,39 +1,42 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { Formik, Field, Form } from "formik";
-import { FC } from 'react';
-import { create } from '../DatumApi';
+import { FC, useContext } from 'react';
+import { create } from '../DataApi';
+import { DataContext } from '../DataContext';
 
-interface CreateProps {
-    setIsLoading: any
-}
+const Create: FC = () => {
+    const { refreshData } = useContext(DataContext);
 
-const Create: FC<CreateProps> = ({ setIsLoading }) => {
+    const handleSubmit = async (value: any) => { // TODO get correct type here
+        await create(value.data)
+        console.log('calling refresh in create handler')
+        await refreshData()
+        console.log('returned from refresh data in create handler')
+
+    }
+
     return (
         <>
             {/* TODO: Accessibility for form! */}
             <div>
                 <Formik
                     initialValues={{ data: "" }}
-                    onSubmit={async (value) => {
-                        setIsLoading(true)
-                        await create(value.data)
-                        setIsLoading(false) // TODO ; this sort of boilerplate can be avoided with react-query, but doing it explicitly is fine here
-                    }}
+                    onSubmit={handleSubmit}
                 >
                     <Form className='flex'>
 
-                    {/* TODO: ADD VALIDATION for string length, and not js */}
-                    {/* AND handle validation errors gracefully with user facing message on how to fix  */}
+                        {/* TODO: ADD VALIDATION for string length, and not js */}
+                        {/* AND handle validation errors gracefully with user facing message on how to fix  */}
 
-                        <Field 
-                            className="h-12 mr-4 py-2 px-4 rounded-xl" 
-                            name="data" 
-                            type="text" 
-                            placeholder="new datum"/> 
+                        <Field
+                            className="h-12 mr-4 py-2 px-4 rounded-xl"
+                            name="data"
+                            type="text"
+                            placeholder="new datum" />
 
                         <button type="submit" className="rounded-full ">
-                            <FontAwesomeIcon className="h-10 " icon={faCirclePlus} />
+                            <FontAwesomeIcon className="h-10" icon={faCirclePlus} />
                         </button>
                     </Form>
                 </Formik>

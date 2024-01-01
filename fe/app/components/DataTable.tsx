@@ -1,14 +1,17 @@
-import { FC, useState } from "react";
-import { Data, Datum } from "../DatumSchema";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip, getKeyValue, Button } from "@nextui-org/react";
+import { FC, use, useContext, useEffect, useState } from "react";
+import { Datum } from "../DataSchema";
+// import Loader from "./Loader";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Tooltip } from "@nextui-org/react";
 import React from "react";
 import DeleteAction from "./DeleteAction";
+import { DataContext } from "../DataContext";
+import Loader from "./Loader";
 
 const columns = [
-  {
-    uid: "_id",
-    name: "ID",
-  },
+  // {
+  //   uid: "_id",
+  //   name: "ID",   // having the uuid in the table is handy for dev but in general, users don't need to see that
+  // },
   {
     uid: "data",
     name: "Data",
@@ -19,21 +22,20 @@ const columns = [
   },
 ];
 
-interface DataTableProps {
-  items: Data
+interface RenderCellProps {
+  columnKey: String
+  item: Datum
 }
-const DataTable: FC<DataTableProps> = ({ items }) => {
 
-  interface RenderCellProps {
-    columnKey: String
-    item: Datum
-  }
+const DataTable: FC = () => {
+  const { data, isLoading } = useContext(DataContext)
+
 
   const renderCell = React.useCallback(({ item, columnKey }: RenderCellProps) => {
 
     switch (columnKey) {
-      case "_id":
-        return item._id
+      // case "_id":
+      //   return item._id      
       case "data":
         return item.data
       case "actions":
@@ -51,24 +53,27 @@ const DataTable: FC<DataTableProps> = ({ items }) => {
     }
   }, []);
 
-  return (
-    <Table className="mt-10" aria-label="Data Table">
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn key={column.uid} align={"start"}>
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody items={items}>
-        {(item) => (
-          <TableRow key={item._id}>
-            {(columnKey) => <TableCell>{renderCell({ item, columnKey } as RenderCellProps)}</TableCell>}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
-  );
+  return (isLoading
+    ? <Loader />
+    : <>
+      <Table className="mt-10 w-1/2" aria-label="Data Table">
+        <TableHeader columns={columns}>
+          {(column) => (
+            <TableColumn key={column.uid} align={"start"}>
+              {column.name}
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody items={data}>
+          {(item) => (
+            <TableRow key={item._id}>
+              {(columnKey) => <TableCell>{renderCell({ item, columnKey } as RenderCellProps)}</TableCell>}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </>
+  )
 }
 
 export default DataTable

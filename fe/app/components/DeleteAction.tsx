@@ -1,9 +1,9 @@
 
-import { deleteById } from "../DatumApi";
+import { deleteById } from "../DataApi";
 import { FC, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import { Datum } from "../DatumSchema";
+import { Datum } from "../DataSchema";
 import { Button } from "@nextui-org/react";
 
 interface DeleteActionProps {
@@ -29,9 +29,7 @@ const DeleteAction: FC<DeleteActionProps> = ({ columnKey, item }) => {
         <div className="flex">
             {showCofirmation
                 ? <div className="flex gap-x-2">
-                    <p className="text-xs ">
-                        Are you sure you want to delete this datum?
-                    </p>
+                    <p className="text-xs ">Danger!</p>
                     <Button
                         className="h-6"
                         color="danger"

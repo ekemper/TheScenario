@@ -23,9 +23,10 @@ export const fetchAll = async () => {
 
 export const create = async (data: String) => {
 
+  console.log('called create in api')
   try {
     const body = JSON.stringify({data})
-    console.log(body)
+    console.log({body})
 
     const resp = await fetch(`${dataApiUrl}`, {
       method: 'POST',
@@ -36,7 +37,13 @@ export const create = async (data: String) => {
       },
     });
 
-    return await resp.json()
+    if(resp.statusText !== 'Created') {
+      console.log({data})
+      throw new Error('Error Creating Data')
+    }
+
+    console.log('returning from create handler')
+    return 
 
   } catch (e) {
     console.log({ e })
