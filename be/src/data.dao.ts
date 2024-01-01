@@ -3,8 +3,6 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Data } from "./data.db";
 
-
-
 @Injectable()
 export class DataDao {
 

@@ -16,8 +16,10 @@ export class AppService {
   }
 
   async create(data: Data) {
-    console.log('called create')
+    console.log('called create in service')
     return await this.dataDao.create(data)
   }
 
 }
+
+
