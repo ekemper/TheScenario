@@ -17,7 +17,7 @@ export const fetchAll = async () => {
     return await resp.json()
 
   } catch (e) {
-    console.log({ e }) // TODO : not for prod, need to handle fe api errors gracefully
+    console.log({ e }) // TODO : not for prod, need to handle api client errors gracefully
   }
 }
 
@@ -50,6 +50,9 @@ export const deleteById = async (id: String) => {
     const resp = await fetch(`${dataApiUrl}${id}`, {
       method: 'DELETE',
       mode: 'cors',
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     return await resp.json()

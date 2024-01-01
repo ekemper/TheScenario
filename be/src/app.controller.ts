@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Data } from './data.db';
 
@@ -17,5 +17,14 @@ export class AppController {
     console.log({reqBody})
     this.appService.create(reqBody);
   }
+
+
+  @Delete(":id")
+  deleteById(@Param("id") id: string) {
+    console.log("in Delete Action")
+    console.log({id})
+    this.appService.deleteById(id);
+  }
 }
 
+// 

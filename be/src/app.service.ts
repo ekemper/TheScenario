@@ -20,6 +20,11 @@ export class AppService {
     return await this.dataDao.create(data)
   }
 
+  async deleteById(datumId: string) {
+    console.log('called delete in service')
+    return await this.dataDao.delete(datumId)
+  }
+
 }
 
 

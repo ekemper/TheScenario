@@ -23,9 +23,8 @@ const Create: FC<CreateProps> = ({ setIsLoading }) => {
                 >
                     <Form className='flex'>
 
-
                     {/* TODO: ADD VALIDATION for string length, and not js */}
-                    {/* handle validation errors gracefully with user facing message on how to fix  */}
+                    {/* AND handle validation errors gracefully with user facing message on how to fix  */}
 
                         <Field 
                             className="h-12 mr-4 py-2 px-4 rounded-xl" 
