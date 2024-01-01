@@ -22,12 +22,8 @@ export const fetchAll = async () => {
 }
 
 export const create = async (data: String) => {
-
-  console.log('called create in api')
   try {
     const body = JSON.stringify({data})
-    console.log({body})
-
     const resp = await fetch(`${dataApiUrl}`, {
       method: 'POST',
       body: body,
@@ -42,18 +38,15 @@ export const create = async (data: String) => {
       throw new Error('Error Creating Data')
     }
 
-    console.log('returning from create handler')
     return 
 
   } catch (e) {
-    console.log({ e })
+    console.error({ e })
   }
 }
 
 export const deleteById = async (id: String) => {
-
   try {
-
     const resp = await fetch(`${dataApiUrl}${id}`, {
       method: 'DELETE',
       mode: 'cors',
@@ -65,6 +58,6 @@ export const deleteById = async (id: String) => {
     return await resp.json()
 
   } catch (e) {
-    console.log({ e })
+    console.error({ e })
   }
 }

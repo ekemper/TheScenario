@@ -1,10 +1,11 @@
 
 import { deleteById } from "../Data/DataApi";
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { Datum } from "../Data/DataSchema";
 import { Button } from "@nextui-org/react";
+import { DataContext } from "../Data/DataContext";
 
 interface DeleteActionProps {
     columnKey: String
@@ -12,17 +13,12 @@ interface DeleteActionProps {
 }
 
 const DeleteAction: FC<DeleteActionProps> = ({ columnKey, item }) => {
-
+    const {refreshData} = useContext(DataContext)
     const [showCofirmation, setShowConfirmation] = useState(false)
 
-    const handleDelete = (e: any, item: Datum) => { // TODO : need correct type
-        const _id = item._id
-        console.log({ _id })
-
-        deleteById(_id).then((resp: unknown) => { // TODO : need correct type
-            console.log({ resp })
-            debugger
-        })
+    const handleDelete = async (e: any, item: Datum) => { // TODO : need correct type
+        await deleteById(item._id)
+        await refreshData()
     }
 
     return (

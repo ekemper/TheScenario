@@ -4,9 +4,7 @@ import { fetchAll } from './DataApi';
 
 type DataContextType = {
  data: Data;
- refreshData?: () => Promise<void>;
- setData: any;
- setIsLoading: any;
+ refreshData: () => Promise<void>;
  isLoading: Boolean
 }
 
@@ -14,8 +12,6 @@ const initialvalue: DataContextType = {
   data: [],
   refreshData: async () => {},
   isLoading: false,
-  setData: () => {},
-  setIsLoading: () => {}
 }
 
 export const DataContext = createContext<DataContextType>(initialvalue);
@@ -25,14 +21,10 @@ export const DataProvider = ({ children }: any) => {
   const [isLoading, setIsLoading] = useState<Boolean>(true);
 
   const [data, setData] = useState([]);
-  // const dataRef = useRef([]);
-  // dataRef.current = data
 
   const refreshDataFunc = async () => {
-    console.log('called refresh data')
     setIsLoading(true)
     const newData = await fetchAll()
-    console.log({newData})
     setData(newData)
     setIsLoading(false)
     return
@@ -44,18 +36,15 @@ export const DataProvider = ({ children }: any) => {
     setLoadData(false)
 
     try {
-      refreshDataFunc().then(() => {
-        console.log('in then after init refresh data call')
-      })
+      refreshDataFunc().then(() => {})
       return
-
     } catch (e) {
       console.log({ e }) // TODO : not for prod, need to handle fe errors gracefully
     }
   }, [])
 
   return (
-    <DataContext.Provider value={{ data, setData, isLoading, setIsLoading}}>
+    <DataContext.Provider value={{ data, refreshData: refreshDataFunc, isLoading}}>
       {children}
     </DataContext.Provider>
   );
