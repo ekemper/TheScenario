@@ -24,13 +24,19 @@ const DeleteAction: FC<DeleteActionProps> = ({ columnKey, item }) => {
     return (
         <div className="flex">
             {showCofirmation
-                ? <div className="flex gap-x-2">
-                    <p className="text-xs ">Danger!</p>
+                ? <div className="flex flex-row gap-x-2">
+                    <p className="text-xs my-1">Danger!</p>
                     <Button
                         className="h-6"
                         color="danger"
                         onClick={event => handleDelete(event, item)}>
                         Delete
+                    </Button>
+                    <Button
+                        className="h-6"
+                        color="primary"
+                        onClick={() => setShowConfirmation(false)}>
+                        Nvm
                     </Button>
                 </div>
 

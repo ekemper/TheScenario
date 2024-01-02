@@ -4,15 +4,21 @@ import { Formik, Field, Form } from "formik";
 import { FC, useContext } from 'react';
 import { create } from '../Data/DataApi';
 import { DataContext } from '../Data/DataContext';
-
+import * as Yup from 'yup'
 const Create: FC = () => {
     const { refreshData } = useContext(DataContext);
 
-    const handleSubmit = async (value: any, {resetForm}:any) => { // TODO get correct type here
+    const handleSubmit = async (value: any, { resetForm }: any) => { // TODO get correct type here
         await create(value.data)
         await refreshData()
         resetForm()
     }
+
+    const maxChars = 30
+
+    const datumFormSchema = Yup.object().shape({
+        data: Yup.string().max(maxChars, `Too Long! Maximum number of characters is ${maxChars}`)
+    })
 
     return (
         <>
@@ -21,22 +27,35 @@ const Create: FC = () => {
                 <Formik
                     initialValues={{ data: "" }}
                     onSubmit={handleSubmit}
+                    validationSchema={datumFormSchema}
+                    validateOnChange
                 >
-                    <Form className='flex'>
+                    {({ errors, touched, handleChange }) => (
 
-                        {/* TODO: ADD VALIDATION for string length, and not js */}
-                        {/* AND handle validation errors gracefully with user facing message on how to fix  */}
+                        <Form className='flex'>
 
-                        <Field
-                            className="h-12 mr-4 py-2 px-4 rounded-xl"
-                            name="data"
-                            type="text"
-                            placeholder="new datum" />
+                            {/* TODO: ADD VALIDATION for string length, and not js */}
+                            {/* AND handle validation errors gracefully with user facing message on how to fix  */}
 
-                        <button type="submit" className="rounded-full ">
-                            <FontAwesomeIcon className="h-10" icon={faCirclePlus} />
-                        </button>
-                    </Form>
+                            <Field
+                                className="h-12 w-80 mr-4 py-2 px-4 rounded-xl"
+                                name="data"
+                                type="text"
+                                placeholder="new datum"
+                                onChange={(e:any) => handleChange(e)} />
+
+                            
+                            <button type="submit" className="rounded-full ">
+                                <FontAwesomeIcon className="h-10" icon={faCirclePlus} />
+                            </button>
+
+                            {errors.data && touched.data
+                            ? <div className='mx-12 my-2'>{errors.data}</div>
+                            : null}
+                        </Form>
+                        
+
+                    )}
                 </Formik>
             </div>
         </>

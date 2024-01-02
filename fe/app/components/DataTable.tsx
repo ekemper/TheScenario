@@ -1,6 +1,5 @@
-import { FC, use, useContext, useEffect, useState } from "react";
+import { FC, useContext } from "react";
 import { Datum } from "../Data/DataSchema";
-// import Loader from "./Loader";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Tooltip } from "@nextui-org/react";
 import React from "react";
 import DeleteAction from "./DeleteAction";
@@ -56,7 +55,7 @@ const DataTable: FC = () => {
   return (isLoading
     ? <Loader />
     : <>
-      <Table className="mt-10 w-1/2" aria-label="Data Table">
+      <Table className="mt-10" aria-label="Data Table">
         <TableHeader columns={columns}>
           {(column) => (
             <TableColumn key={column.uid} align={"start"}>
@@ -67,7 +66,7 @@ const DataTable: FC = () => {
         <TableBody items={data}>
           {(item) => (
             <TableRow key={item._id}>
-              {(columnKey) => <TableCell>{renderCell({ item, columnKey } as RenderCellProps)}</TableCell>}
+              {(columnKey) => <TableCell className="w-56">{renderCell({ item, columnKey } as RenderCellProps)}</TableCell>}
             </TableRow>
           )}
         </TableBody>

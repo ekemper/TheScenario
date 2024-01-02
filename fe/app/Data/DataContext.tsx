@@ -5,7 +5,7 @@ import { fetchAll } from './DataApi';
 type DataContextType = {
  data: Data;
  refreshData: () => Promise<void>;
- isLoading: Boolean
+ isLoading: boolean
 }
 
 const initialvalue: DataContextType = {
@@ -18,7 +18,7 @@ export const DataContext = createContext<DataContextType>(initialvalue);
 
 export const DataProvider = ({ children }: any) => {
   const [loadData, setLoadData] = useState<Boolean>(true);
-  const [isLoading, setIsLoading] = useState<Boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const [data, setData] = useState([]);
 
