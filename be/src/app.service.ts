@@ -7,7 +7,7 @@ import { Data } from './data.db';
 export class AppService {
 
   constructor(
-    @InjectModel(Data.name, "local")
+    
     private readonly dataDao: DataDao
   ){}
 

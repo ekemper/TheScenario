@@ -21,5 +21,3 @@ const config: Config = {
   plugins: [nextui()]
 }
 export default config
-
-// docker-compose -f docker-compose.cli.yml run --rm fe-cli npm i @nextui-org/react framer-motion

@@ -5,6 +5,7 @@ import React from "react";
 import DeleteAction from "./DeleteAction";
 import { DataContext } from "../Data/DataContext";
 import Loader from "./Loader";
+import Congrats from "./Congrats";
 
 const columns = [
   // {
@@ -29,6 +30,7 @@ interface RenderCellProps {
 const DataTable: FC = () => {
   const { data, isLoading } = useContext(DataContext)
 
+  const hasData = !!data && data.length
 
   const renderCell = React.useCallback(({ item, columnKey }: RenderCellProps) => {
 
@@ -55,7 +57,8 @@ const DataTable: FC = () => {
   return (isLoading
     ? <Loader />
     : <>
-      <Table className="mt-10" aria-label="Data Table">
+      { hasData 
+        ? <Table className="mt-10" aria-label="Data Table">
         <TableHeader columns={columns}>
           {(column) => (
             <TableColumn key={column.uid} align={"start"}>
@@ -70,7 +73,10 @@ const DataTable: FC = () => {
             </TableRow>
           )}
         </TableBody>
-      </Table>
+        </Table>
+        : <Congrats/>
+      }
+
     </>
   )
 }
