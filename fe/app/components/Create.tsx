@@ -5,7 +5,9 @@ import { FC, useContext } from 'react';
 import { create } from '../Data/DataApi';
 import { DataContext } from '../Data/DataContext';
 import * as Yup from 'yup'
+
 const Create: FC = () => {
+    
     const { refreshData } = useContext(DataContext);
 
     const handleSubmit = async (value: any, { resetForm }: any) => { // TODO get correct type here
@@ -33,10 +35,6 @@ const Create: FC = () => {
                     {({ errors, touched, handleChange }) => (
 
                         <Form className='flex'>
-
-                            {/* TODO: ADD VALIDATION for string length, and not js */}
-                            {/* AND handle validation errors gracefully with user facing message on how to fix  */}
-
                             <Field
                                 className="h-12 w-80 mr-4 py-2 px-4 rounded-xl"
                                 name="data"
@@ -53,8 +51,6 @@ const Create: FC = () => {
                             ? <div className='mx-12 my-2'>{errors.data}</div>
                             : null}
                         </Form>
-                        
-
                     )}
                 </Formik>
             </div>

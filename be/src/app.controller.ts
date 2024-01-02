@@ -13,18 +13,11 @@ export class AppController {
 
   @Post()
   create(@Body() reqBody: Data) {
-    console.log("in controller")
-    console.log({reqBody})
     this.appService.create(reqBody);
   }
 
-
   @Delete(":id")
   deleteById(@Param("id") id: string) {
-    console.log("in Delete Action")
-    console.log({id})
     this.appService.deleteById(id);
   }
 }
-
-// 

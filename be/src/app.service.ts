@@ -7,21 +7,19 @@ import { Data } from './data.db';
 export class AppService {
 
   constructor(
+    @InjectModel(Data.name, "local")
     private readonly dataDao: DataDao
   ){}
 
   async getAll() {
-    console.log('called get all!')
     return await this.dataDao.getAll()
   }
 
   async create(data: Data) {
-    console.log('called create in service')
     return await this.dataDao.create(data)
   }
 
   async deleteById(datumId: string) {
-    console.log('called delete in service')
     return await this.dataDao.delete(datumId)
   }
 

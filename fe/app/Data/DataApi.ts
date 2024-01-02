@@ -34,7 +34,7 @@ export const create = async (data: String) => {
     });
 
     if(resp.statusText !== 'Created') {
-      console.log({data})
+      console.error({data})
       throw new Error('Error Creating Data')
     }
 

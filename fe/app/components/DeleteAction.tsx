@@ -49,5 +49,4 @@ const DeleteAction: FC<DeleteActionProps> = ({ columnKey, item }) => {
     )
 }
 
-
 export default DeleteAction
